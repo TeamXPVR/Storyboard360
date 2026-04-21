@@ -12,6 +12,10 @@ export const generateNanoBananaStoryboard = async (
   const rawApiKey = localStorage.getItem('gemini_api_key');
   const apiKey = rawApiKey ? rawApiKey.trim() : null;
   const modelId = localStorage.getItem('gemini_model') || 'imagen-4.0-ultra-generate-001';
+  
+  const modelName = modelId === 'imagen-3.0-generate-001' 
+    ? 'NanoBanana Standard (Imagen 3) - Plus Rapide' 
+    : 'NanoBanana Pro (Imagen 4 Ultra) - Qualité Maximale';
 
   if (!apiKey) {
     alert("Veuillez configurer votre clé API NanoBanana (Google) dans les paramètres (icône ⚙️) avant de commencer !");
@@ -75,7 +79,7 @@ Style visuel strict : ${selectedStyleDescription}`;
         return {
           id: `case-${Date.now()}-${i}`,
           imageUrl: dataUrl,
-          promptInterpretation: `Génération Locale BYOK (${modelId}).\nStyle appliqué: ${settings.style || 'ligne-claire'}`,
+          promptInterpretation: `Modèle : ${modelName}\nStyle appliqué : ${settings.style || 'ligne-claire'}`,
           format: layoutDef.format,
         };
       })
