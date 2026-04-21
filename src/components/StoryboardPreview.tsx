@@ -6,18 +6,30 @@ interface StoryboardPreviewProps {
   cases: StoryboardCase[];
   isGenerating: boolean;
   layoutId?: string;
+  activeStyle?: string;
 }
 
-const StoryboardPreview: React.FC<StoryboardPreviewProps> = ({ cases, isGenerating, layoutId = 'classique' }) => {
+const styleNames: Record<string, string> = {
+  'ligne-claire': 'Ligne Claire (BD)',
+  'photorealiste': 'Photoréaliste 4K',
+  'anime': 'Anime (Ghibli)',
+  '3d-render': 'Rendu 3D (Unreal)',
+  'watercolor': 'Aquarelle',
+  'oil-painting': 'Peinture à l\'huile',
+  'minimaliste': 'Minimaliste Flat'
+};
+
+const StoryboardPreview: React.FC<StoryboardPreviewProps> = ({ cases, isGenerating, layoutId = 'classique', activeStyle = 'ligne-claire' }) => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   if (isGenerating) {
+    const styleName = styleNames[activeStyle] || 'Ligne Claire';
     return (
       <div className="glass-panel" style={{ padding: '4rem', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '400px' }}>
         <div className="spinner" style={{ width: '48px', height: '48px', marginBottom: '1.5rem', borderColor: 'rgba(59, 130, 246, 0.2)', borderTopColor: 'var(--accent-color)' }}></div>
         <h3 className="text-gradient">Génération du Storyboard en cours...</h3>
         <p style={{ color: 'var(--text-secondary)', marginTop: '0.5rem', textAlign: 'center' }}>
-          NanoBanana analyse votre prompt et génère les illustrations style "Ligne Claire".
+          NanoBanana analyse votre prompt et génère les illustrations style "{styleName}".
         </p>
       </div>
     );

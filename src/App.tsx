@@ -12,12 +12,14 @@ function App() {
   const [cases, setCases] = useState<StoryboardCase[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
   const [activeLayoutId, setActiveLayoutId] = useState<string>('classique');
+  const [activeStyle, setActiveStyle] = useState<string>('ligne-claire');
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
 
   const handleGenerate = async (settings: StoryboardSettings) => {
     setIsGenerating(true);
     setCases([]); // Vider la planche précédente
     setActiveLayoutId(settings.layoutId);
+    setActiveStyle(settings.style || 'ligne-claire');
     
     try {
       // Appel au service NanoBanana pour la génération "Ligne Claire"
@@ -48,7 +50,7 @@ function App() {
         {/* On n'affiche la zone de prévisualisation et d'export que s'il y a une action ou des planches */}
         {(isGenerating || cases.length > 0) && (
           <>
-            <StoryboardPreview cases={cases} isGenerating={isGenerating} layoutId={activeLayoutId} />
+            <StoryboardPreview cases={cases} isGenerating={isGenerating} layoutId={activeLayoutId} activeStyle={activeStyle} />
             <ExportPanel hasStoryboard={cases.length > 0 && !isGenerating} cases={cases} />
           </>
         )}
