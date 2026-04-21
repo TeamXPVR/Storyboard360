@@ -1,0 +1,311 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Colors */
+  --bg-color: #0f1115;
+  --bg-color-secondary: #1a1d24;
+  --text-primary: #f3f4f6;
+  --text-secondary: #9ca3af;
+  --accent-color: #3b82f6;
+  --accent-hover: #2563eb;
+  --accent-glow: rgba(59, 130, 246, 0.5);
+  
+  --border-color: rgba(255, 255, 255, 0.1);
+  --border-radius-sm: 8px;
+  --border-radius-md: 12px;
+  --border-radius-lg: 16px;
+
+  --panel-bg: rgba(255, 255, 255, 0.03);
+  --panel-border: rgba(255, 255, 255, 0.05);
+
+  --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+  --shadow-glow: 0 0 15px var(--accent-glow);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: transparent;
+  color: var(--text-primary);
+  min-height: 100vh;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* Utilities */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glassmorphism */
+.glass-panel {
+  background: var(--panel-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius-md);
+  font-weight: 500;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  font-family: 'Inter', sans-serif;
+}
+
+.btn-primary {
+  background-color: var(--accent-color);
+  color: white;
+  box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(59, 130, 246, 0.4);
+}
+
+.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Inputs */
+.input-base {
+  width: 100%;
+  background-color: var(--bg-color-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-md);
+  color: var(--text-primary);
+  padding: 0.75rem 1rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.input-base:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+textarea.input-base {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+/* Storyboard Specifics */
+.ligne-claire-frame {
+  border: 4px solid #111;
+  background-color: #fff;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 2px 4px 10px rgba(0,0,0,0.5);
+}
+
+.ligne-claire-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none; /* Prevents dragging issues */
+}
+
+/* Loading Animation */
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid rgba(255,255,255,0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+/* Force visible elements during PDF export (html2canvas) */
+.export-mode .animate-fade-in {
+  animation: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* ====================================================
+   Color Background Animations (Splash effect)
+==================================================== */
+.color-blobs {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  overflow: hidden;
+  background-color: #080a0f; /* Fond très sombre pour exalter le néon */
+  pointer-events: none;
+  /* Rotation harmonieuse de tout le spectre RGB */
+  animation: rgb-cycle 18s linear infinite;
+}
+
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px); /* Flou plus large pour supprimer le crénelage */
+  opacity: 0.8;
+  animation: float 14s infinite ease-in-out alternate;
+  will-change: transform;
+  /* Retrait du mix-blend-mode qui causait l'effet 'crénelé/banding' */
+}
+
+/* Teintes de base qui vont pivoter sur le spectre RGB */
+.blob-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: rgba(255, 0, 100, 0.7); animation-delay: 0s; }
+.blob-2 { top: 30%; right: -10%; width: 60vw; height: 40vw; background: rgba(0, 150, 255, 0.7); animation-delay: -3s; }
+.blob-3 { bottom: -20%; left: 30%; width: 55vw; height: 45vw; background: rgba(0, 255, 100, 0.6); animation-delay: -6s; }
+.blob-4 { top: 20%; left: 30%; width: 45vw; height: 45vw; background: rgba(150, 0, 255, 0.6); animation-delay: -9s; }
+
+@keyframes rgb-cycle {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+@keyframes float {
+  0% { transform: scale(1) translate(0, 0) rotate(0deg); }
+  33% { transform: scale(1.1) translate(30px, -50px) rotate(15deg); }
+  66% { transform: scale(0.9) translate(-40px, 30px) rotate(-5deg); }
+  100% { transform: scale(1.05) translate(20px, 40px) rotate(10deg); }
+}
+
+/* ====================================================
+   Layouts Grid CSS
+==================================================== */
+.storyboard-grid {
+  display: grid;
+  gap: 2rem;
+  width: 100%;
+}
+
+.layout-single {
+  grid-template-columns: 1fr;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.layout-classique {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.layout-grid-2x2 {
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.layout-hero-details {
+  grid-template-columns: repeat(3, 1fr);
+}
+.layout-hero-details > div:nth-child(1) {
+  grid-column: 1 / -1; /* Prend toute la largeur */
+}
+
+.layout-vertical {
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.layout-manga {
+  grid-template-columns: repeat(3, 1fr);
+}
+.layout-manga > div:nth-child(1) { /* Hero intro */
+  grid-column: 1 / -1;
+}
+.layout-manga > div:nth-child(2) { /* case carrée gérée auto */
+  grid-column: 1 / 2;
+}
+.layout-manga > div:nth-child(3) { /* case carrée gérée auto */
+  grid-column: 2 / 3;
+}
+.layout-manga > div:nth-child(4) { /* vertical dramatique à droite */
+  grid-column: 3 / 4;
+}
+
+/* Résolution Mobile pour tous les grids */
+@media (max-width: 768px) {
+  .storyboard-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .storyboard-grid > div {
+    grid-column: 1 / -1 !important;
+  }
+}
