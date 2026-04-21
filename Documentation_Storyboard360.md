@@ -83,5 +83,34 @@ C'est la naissance de la solution du **Néon Fluctuant CSS**. La première solut
 L'étape finale et apothéose logicielle menée le 21 Avril 2026. L'application, alourdie par le vieux serveur local backend de la Phase 1 n'était pas distribuable convenablement.
 Refonte globale, intégration directe du composant SDK Google GenAI dans le navigateur. Conception du Panneau des "Paramètres Locaux" confiant la responsabilité de la clé API à l'hébergement chiffré du navigateur au travers de la technologie BYOK (Bring Your Own Key). La boucle des données traitées est dorénavant 100% "Serverless", rapide (image textuelle Base64), totalement indépendante et finaliste pour Vercel/GitHub Pages. Ajout final d'un raccourci UX direct vers Google AI Studio au sein des paramètres pour permettre aux novices de générer sans friction leur clé gratuite.
 
+### Phase 7 : Sécurisation et Débogage Post-Déploiement
+*   **Correction TypeScript Strict** : L'environnement Vercel a bloqué la première compilation en raison d'un manque de typage conditionnel strict sur le retour de l'API (`TS18048`). Un garde-fou a été programmé.
+*   **Auto-nettoyage des Clés (Trim)** : Le copier-coller des clés API engendrait parfois des erreurs à cause d'espaces fantômes. Ajout de la fonction `.trim()` dans les paramètres.
+*   **Gestion des Fuites (Secret Scanning)** : L'envoi accidentel de l'ancien dossier `server` contenant un fichier `.env` sur Github a provoqué une alerte de sécurité. Le dossier a été détruit et l'historique Git purgé totalement (`git checkout --orphan`, `git push --force`).
+
+---
+
+## 🛠️ 4. Synthèse des Erreurs Rencontrées et Leçons Tirées
+
+Ce projet a permis de surmonter plusieurs défis techniques majeurs tout au long de sa conception :
+
+1.  **L'Écran Gris du PDF (`html2canvas`)** :
+    *   *Symptôme* : Lors de l'export PDF, les cases d'images ressortaient grisées.
+    *   *Cause* : Conflit de rendu du DOM entre les effets CSS avancés (Glassmorphism, animations) et le moteur de capture Javascript.
+    *   *Solution* : Forçage du chargement complet des images Data-URI et désactivation temporaire des effets visuels parasites lors du clic d'export.
+2.  **CORS & Proxying** :
+    *   *Symptôme* : Impossibilité d'appeler l'API Gemini directement depuis le frontend (au début du projet).
+    *   *Cause* : Sécurité inhérente aux requêtes API (Cross-Origin Resource Sharing).
+    *   *Solution Initiale* : Création d'un serveur relais en Node.js/Express (`/api/generate`).
+    *   *Solution Finale* : Remplacement complet par le nouveau SDK `@google/genai` en Serverless avec clé utilisateur locale, qui intègre nativement la gestion Edge des requêtes.
+3.  **L'Enfer du Crénelage (Color Banding)** :
+    *   *Symptôme* : Le fond coloré affichait des bandes disgracieuses (artefacts visuels) lors des fusions de couleurs.
+    *   *Cause* : Limite du mode de fusion `color-dodge` combiné à de très fortes opacités CSS.
+    *   *Solution* : Refonte par un fond basé sur des halos colorés purs tournants (animation `hue-rotate` sur 360°) noyés sous un filtre `blur()`, éliminant tout effet d'escalier.
+4.  **Erreurs de Build Strict (Vercel)** :
+    *   *Symptôme* : Code fonctionnel localement, mais échec sur le cloud.
+    *   *Cause* : TypeScript strict refusait la lecture de l'image si la propriété pouvait théoriquement être indéfinie (`undefined`).
+    *   *Solution* : Blindage algorithmique conditionnant l'accès aux variables de l'API.
+
 ---
 **STATUT ACTUEL DU PROJET : ACHEVÉ - OPÉRATIONNEL - DEPLOYABLE**
